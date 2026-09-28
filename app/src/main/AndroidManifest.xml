@@ -3,7 +3,6 @@
     package="com.android.smartspaceenabler">
 
     <application
-        android:label="Enable Smartspace"
-        android:description="Enables the Smartspace QSB widget on Motorola Launcher3">
+        android:label="Enable Smartspace">
     </application>
 </manifest>
