@@ -18,17 +18,21 @@ jobs:
           java-version: '17'
           distribution: temurin
 
-      - name: Download Android build tools
+      - name: Download dependencies
         run: |
           mkdir -p deps
-          curl -L -o deps/libxposed-api-102.jar \
-            https://github.com/libxposed/api/releases/download/102.0.0/api-102.0.0.jar
+          # libxposed API (AAR from Maven Central, extract classes.jar)
+          curl -L -o deps/libxposed-api-102.aar \
+            https://repo1.maven.org/maven2/io/github/libxposed/api/102.0.0/api-102.0.0.aar
+          cd deps && unzip -o libxposed-api-102.aar classes.jar && mv classes.jar libxposed-api-102.jar && cd ..
+          # android.jar (platform 36)
           curl -L -o deps/android.jar \
             https://raw.githubusercontent.com/Sable/android-platforms/master/android-36/android.jar
+          # build-tools r34 (aapt2, d8, zipalign, apksigner)
           curl -L -o build-tools.zip \
-            https://dl.google.com/android/repository/build-tools_r36.0.0-linux.zip
+            https://dl.google.com/android/repository/build-tools_r34-linux.zip
           unzip -q build-tools.zip -d deps/
-          mv deps/android-36 deps/build-tools
+          mv deps/android-34 deps/build-tools
 
       - name: Compile
         run: |
