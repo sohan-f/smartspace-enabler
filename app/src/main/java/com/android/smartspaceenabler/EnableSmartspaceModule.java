@@ -12,16 +12,9 @@ public class EnableSmartspaceModule extends XposedModule {
     private static final String TAG = "EnableSmartspace";
     private static final String TARGET_PACKAGE = "com.motorola.launcher3";
 
-    public EnableSmartspaceModule(ModuleLoadedParam param) {
-        super(param);
-    }
-
     @Override
     public void onModuleLoaded(ModuleLoadedParam param) {
         if (param.isSystemServer()) {
-            return;
-        }
-        if (!TARGET_PACKAGE.equals(param.getPackageName())) {
             detach();
             return;
         }
